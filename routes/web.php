@@ -2,6 +2,9 @@
 
 Route::get('/createDocument', 'DocumentController@create');
 
+Route::get('/showDocuments', 'DocumentController@show');
+  
+
 Route::get('/', function () {
     return view('auth.login');
 });
