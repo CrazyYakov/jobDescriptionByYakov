@@ -13,6 +13,9 @@ class StructUnit extends Migration
             $table->bigIncrements('id');
             $table->string('struct_unit');
             $table->text('description');
+            $table->bigInteger('inst_id')->unsigned();
+            $table->foreign('inst_id')->references('id')->on('institutions');
+            $table->timestamps();
         });
     }
 

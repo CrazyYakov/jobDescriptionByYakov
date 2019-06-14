@@ -3,7 +3,8 @@
 Route::get('/createDocument', 'DocumentController@create');
 
 Route::get('/showDocuments', 'DocumentController@show');
-  
+ 
+Route::get('/createDocument/createJD', 'DocumentController@createJD');
 
 Route::get('/', function () {
     return view('auth.login');
