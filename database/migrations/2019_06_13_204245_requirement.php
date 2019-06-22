@@ -12,9 +12,9 @@ class Requirement extends Migration
         Schema::create('requirement', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');            
-            $table->text('text');
-            $table->bigInteger('inst_id')->unsigned();
-            $table->foreign('inst_id')->references('id')->on('institutions');
+            $table->text('text');            
+            $table->bigInteger('typeReq_id')->unsigned();
+            $table->foreign('typeReq_id')->references('id')->on('typeReq');
             $table->timestamps();
         });
     }

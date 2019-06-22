@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class JobPositions extends Migration
+class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,19 @@ class JobPositions extends Migration
      */
     public function up()
     {
-        Schema::create('job_positions', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->text('description');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->bigInteger('role_id')->unsigned();
+            $table->foreign('role_id')->references('id')->on('role');
             $table->bigInteger('inst_id')->unsigned();
             $table->foreign('inst_id')->references('id')->on('institutions');
+            $table->bigInteger('job_id')->unsigned();
+            $table->foreign('job_id')->references('id')->on('job_positions');
+            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -30,6 +37,6 @@ class JobPositions extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('job_positions');
+        Schema::dropIfExists('users');
     }
 }

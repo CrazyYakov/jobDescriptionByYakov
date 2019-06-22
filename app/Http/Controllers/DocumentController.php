@@ -4,18 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Collection;
-use App;
+use App\Documents;
 
 class DocumentController extends Controller
 {    
     public function create()
     {
+        $dateServer ;
         return view('createDocument');
     }
 
     public static function show()
     {
-        $documents = App\Documents::all();
+        $documents = Documents::all();
+        
         return view('/showDocuments', compact('documents'));
     }
 
@@ -48,7 +50,6 @@ class DocumentController extends Controller
         );  
         $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord,'Word2007');
         $objWriter->save('doc.docx');
-        DocumentController::show();
-        
+        DocumentController::show();        
     } 
 }
