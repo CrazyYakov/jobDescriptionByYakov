@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\superAdmin;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\institutions;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 class InstitutionsController extends Controller
 {
     /**
@@ -14,14 +14,14 @@ class InstitutionsController extends Controller
      */
     public function index()
     {
-        return view('admin.institutions.index',[
+        return view('superAdmin.institutions.index',[
             'institutions' => institutions::paginate(10)
         ]);
     }
 
     public function create()
     {
-        return view('admin.institutions.create',[
+        return view('superAdmin.institutions.create',[
             'institutions'=>[]            
         ]);
     }
@@ -29,7 +29,10 @@ class InstitutionsController extends Controller
     
     public function store(Request $request)
     {
-        institutions::create($request->all());
+        institutions::create([
+            'institut' => $request['institut'],
+            'description'=>$request['description'],
+        ]);
 
         return redirect()->route('superAdmin.institutions.index');
     }

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class JobDescription extends Model
+class struct_unit extends Model
 {
-    protected $fillable  = [''];
+    //
 }

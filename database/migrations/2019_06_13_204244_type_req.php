@@ -13,6 +13,8 @@ class TypeReq extends Migration
             $table->bigIncrements('id');
             $table->string('nameType');
             $table->text('description');
+            $table->bigInteger('inst_id')->unsigned();
+            $table->foreign('inst_id')->references('id')->on('institutions');            
             $table->timestamps();
         });
     }

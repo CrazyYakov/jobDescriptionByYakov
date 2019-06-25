@@ -14,15 +14,19 @@ class JobDescription extends Migration
     public function up()
     {
         Schema::create('JobDescription', function (Blueprint $table) {
-            $table->bigInteger('unit_id')->unsigned();
-            $table->bigInteger('doc_id')->unsigned();
-            $table->bigInteger('req_id')->unsigned();
+            $table->bigIncrements('id');
+            $table->string('nameDocument');
+            $table->text('record');
+            $table->string('agreed_by');
+            $table->timestamp('created_at')->nullable();            
+            $table->timestamp('adoption_at')->nullable();            
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->bigInteger('unit_id')->unsigned();            
             $table->bigInteger('job_id')->unsigned();
-            $table->foreign('job_id')->references('id')->on('job_positions');
-            $table->foreign('doc_id')->references('id')->on('documents');
-            $table->foreign('req_id')->references('id')->on('requirement');
+            $table->foreign('job_id')->references('id')->on('job_positions');            
             $table->foreign('unit_id')->references('id')->on('struct_unit');
-            
+
         });
     }
 

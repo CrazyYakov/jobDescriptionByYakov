@@ -134,7 +134,25 @@
  </script>
                                 </div>
                                 </div>
-                            </div>                            
+                            </div>
+                                                        
+                            <div class="card">
+                                <div class="card-header" id="headingFour">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="headingFour">
+                                        
+                                    </button>
+                                </h2>
+                                </div>
+                                <div id="headingFour" class="collapse" aria-labelledby="heading" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <textarea class="form-control update-field" name="list_do" id="" cols="30" rows="10">
+                                    </textarea>
+                                    
+                                </div>
+                                </div>
+                            </div>
+                                              
                             <a class="btn btn-primary" href="{{ url('/createDocument/createJD') }}" role="button">Сфоримировать документ</a>
                         </div>                        
                 </div>

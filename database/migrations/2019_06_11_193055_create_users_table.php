@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->bigInteger('role_id')->unsigned();
-            $table->foreign('role_id')->references('id')->on('role');
+            $table->foreign('role_id')->references('id')->on('roles');
             $table->bigInteger('inst_id')->unsigned();
             $table->foreign('inst_id')->references('id')->on('institutions');
             $table->bigInteger('job_id')->unsigned();

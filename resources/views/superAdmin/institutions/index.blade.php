@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="containet">
+    <div class="container">
     <a href="{{route('superAdmin.institutions.create')}}" class="btn btn-primary">Создать Институт</a>
     <table class="table table-striped">
         <thead>
             <th>#</th>
             <th>Название</th>
             <th>Описание</th>
-            <th class="text-right">Действие</th>
+            <th >Действие</th>
         </thead>
         <tbody>
             @forelse ($institutions as $institution)
@@ -17,9 +17,10 @@
             <td>{{$institution->institut}}</td>
             <td>{{$institution->description}}</td>
             <td>
-            <a href="{{route('superAdmin.institutions.edit',['id'=>$institution->id])}}">
-                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-            </a>
+                <a href="{{route('superAdmin.institutions.delete',['id'=>$institution->id])}}">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </a>
+                
             </td>
             </tr>
             @empty

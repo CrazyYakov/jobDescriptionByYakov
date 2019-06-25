@@ -9,10 +9,9 @@ class Role extends Migration
     
     public function up()
     {
-        Schema::create('role', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nameRole')->unique();           
-            $table->text('description');  
+            $table->string('nameRole')->unique();                       
         });
     }
   
