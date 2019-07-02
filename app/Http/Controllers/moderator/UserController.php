@@ -1,15 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\superAdmin;
+namespace App\Http\Controllers\moderator;
 
-use App\Http\Controllers\Controller;
-use App\User;
-use App\institutions;
-use App\Job_positions;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
+use App\Job_positions;
 class UserController extends Controller
 {
     /**
@@ -19,8 +15,9 @@ class UserController extends Controller
      */
     public function index()
     {
+        $inst = Auth::user()->inst_id;
         return view('superAdmin.users.index',[
-            'users' => User::paginate(10)
+            'users' => User::where('inst_id', $inst)
         ]);
     }
 
@@ -31,9 +28,10 @@ class UserController extends Controller
      */
     public function create()
     {
+        $inst = Auth::user()->inst_id;
         return view('superAdmin.users.create',[
-            'institutions'=> institutions::all(),
-            'jobs'        => Job_positions::all(),
+            
+            'jobs'=> Job_positions::where('inst_id', $inst)->get(),
         ]);
     }
 
@@ -60,9 +58,9 @@ class UserController extends Controller
             'name' => $request['name'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
-            'inst_id' => $request['institut_id'],
+            'inst_id' => Auth::user()->inst_id,
             'job_id' => $request['job_id'],
-            'role_id' => 2,
+            'role_id' => $request['role'],
         ]);
 
         return redirect()->route('superAdmin.users.index');

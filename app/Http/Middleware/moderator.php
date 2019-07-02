@@ -3,8 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
-class superAdmin
+
+class moderator
 {
     /**
      * Handle an incoming request.
@@ -15,10 +15,9 @@ class superAdmin
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::user()->role_id != 1){
+        if($request->role != 'moderator'){
             return redirect('errors.404');
         }
         return $next($request);    
     }
-
 }

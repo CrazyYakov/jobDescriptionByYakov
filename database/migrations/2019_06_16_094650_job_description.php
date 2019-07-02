@@ -13,7 +13,7 @@ class JobDescription extends Migration
      */
     public function up()
     {
-        Schema::create('JobDescription', function (Blueprint $table) {
+        Schema::create('JobDescriptions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nameDocument');
             $table->text('record');

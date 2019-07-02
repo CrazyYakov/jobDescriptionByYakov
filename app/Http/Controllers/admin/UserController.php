@@ -1,26 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\superAdmin;
+namespace App\Http\Controllers\admin;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
-use App\institutions;
+use App\role;
 use App\Job_positions;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        return view('superAdmin.users.index',[
-            'users' => User::paginate(10)
+        $inst = Auth::user()->inst_id;
+        return view('admin.user.index',[
+            'users' => User::where('inst_id', $inst)->get(),
         ]);
     }
 
@@ -31,9 +28,10 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('superAdmin.users.create',[
-            'institutions'=> institutions::all(),
-            'jobs'        => Job_positions::all(),
+        $inst = Auth::user()->inst_id;
+        return view('admin.user.create',[            
+            'jobs' => Job_positions::where('inst_id', $inst)->get(),
+            'roles'=> role::rolesforAdmin(),
         ]);
     }
 
@@ -60,12 +58,12 @@ class UserController extends Controller
             'name' => $request['name'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
-            'inst_id' => $request['institut_id'],
+            'inst_id' => Auth::user()->inst_id,
             'job_id' => $request['job_id'],
-            'role_id' => 2,
+            'role_id' => $request['role_id'],
         ]);
 
-        return redirect()->route('superAdmin.users.index');
+        return redirect()->route('admin.user.index');
     }
 
     /**

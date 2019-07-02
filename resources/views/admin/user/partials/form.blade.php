@@ -28,14 +28,16 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Institute') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Roles') }}</label>
 
                             <div class="col-md-6">                                
-                                    <select class="form-control" name="institut_id">
-                                    <option>Выберете учреждение</option>                                        
-                                    @foreach ($institutions as $institute)
-                                      <option value="{{ $institute->id }}" > {{ $institute->institut }} </option>
-                                    @endforeach    </select>                                        
+                                    <select class="form-control" name="role_id">
+                                    <option>Выберете Роль</option>                                        
+                                    @foreach ($roles as $role)
+                                          <option value="{{ $role->id }}" > {{ $role->nameRole}} </option>
+                                        @endforeach    </select> 
+                             
+                                 </select>                                        
                             </div>                            
                     </div>
                         <div class="form-group row">
@@ -75,7 +77,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Добавить администратора
+                                    Добавить пользователя
                                 </button>
                             </div>
                         </div>

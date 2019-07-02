@@ -12,7 +12,7 @@
                 </a>                                
             </div>
             <div class="col-sm-6">
-                    <a class="btn btn-block btn-default" href="#">Создать Пользователя</a>
+                    <a class="btn btn-block btn-default" href="{{route('superAdmin.users.create')}}">Создать Пользователя</a>
                     <a href="{{route('superAdmin.users.index')}}" class="list-group-item">
                      <p><span class="label label-primary">
                              Пользователи  

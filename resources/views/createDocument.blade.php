@@ -1,7 +1,12 @@
 @extends('layouts.app')
 
 @section('content')     
-                <div class="container  Main__box">                
+                <div class="container  Main__box">    
+                    <form action="{{route('createJD')}}" method="GET" >      
+                    {{csrf_field()}}   
+                    @if (route::has('createJD')))
+                    jhgvjhgv
+                    @endif   
                         <div class="accordion" id="accordionExample">
                             <div class="card">
                                 <div class="card-header" id="headingOne">
@@ -12,21 +17,23 @@
                                     </h2>
                                 </div>
                                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                    <div class="card-body">
-                                   
-                                    <form>
-                                        <input class="form-control" type="text" placeholder="должность / профессия">
+                                    <div class="card-body">                                                               
+                                        <select class="form-control" name="Job">
+                                                <option selected disabled>должность</option>
+                                                @foreach ($jobs as $job)
+                                                    <option value="{{$job->id}}">{{$job->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        <br/>
                                         <label>Утверждать будет</label>
-                                       
-                                        <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                                        <label class="form-check-label" for="exampleRadios1">
-                                        Т.Д.Карминская
-                                        </label>
+                                        <br/>
+                                        <select class="form-control" name="willClaim">                                                
+                                                @foreach ($willClaims as $willClaim)
+                                                    <option value="{{$willClaim->id}}">{{$willClaim->name}}</option>
+                                                @endforeach
+                                            </select>                                    
                                         </div>
-                                       
-                                        </div>
-                                    </form>     
+                               
                                     </div>
                                 </div>
                             </div>      
@@ -41,45 +48,61 @@
                                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                                     <div class="card-body">
                                         <div class="struct_unit">
-                                            <select class="form-control">
+                                            <select class="form-control" name="structUnit">
                                                 <option disabled>структурное подразделение</option>
-                                                <option value="1">Администрация</option>
-                                                <option value="2">Бухгалтерия</option>
+                                                @foreach ($structUnits as $su)
+                                                    <option value="{{$su->id}}">{{$su->struct_unit}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
+                                        <br/>
                                         <div class="immediate_supervisor">
-                                            <form>
-                                                <input type="text" class="form-control" placeholder="Непосредственный руководитель">
-                                            </form>
+                                          
+                                                <input type="text" class="form-control" name="directManger" placeholder="Непосредственный руководитель">
+                                         
                                         </div>
+                                        <br/>
                                         <div class="Senior_manager">
-                                            <form>
-                                                <input type="text" class="form-control" placeholder="вышестоящий руководитель">
-                                            </form>
+                                           
+                                                <input type="text" class="form-control" name="superiorManager" placeholder="вышестоящий руководитель">
+                                           
                                         </div>
+                                        <br/>
                                         <div class="required_education">
-                                            <form>
-                                                <input type="text" class="form-control" placeholder="требуемое образование">
-                                            </form>
+                                           
+                                                <input type="text" class="form-control" name="education" placeholder="требуемое образование">
+                                           
                                         </div>
+                                        <br/>
                                         <div class="immediate_supervisor">
-                                            <form>
-                                                <input type="text" class="form-control" placeholder="Непосредственный руководитель (в родительском падеже)">
-                                            </form>
+                                         
+                                                <input type="text" class="form-control" name="directMangerParentCase"  placeholder="Непосредственный руководитель (в родительском падеже)">
+                                           
                                         </div>
+                                        <br/>
                                         <div class="Senior_manager">
-                                            <form>
-                                                <input type="text" class="form-control" placeholder="вышестоящий руководитель (творительный падеж)">
-                                            </form>
-                                        </div>
-                                        <div class="employee_should_know">
-                                            <form>
-                                            <label for="exampleInputEmail1">Работник должен знать</label>
-                                                <textarea type="text" class="form-control" placeholder="каждый пункт начинается с новой стрки"></textarea>
-                                            </form>
-                                            <textarea class="form-control update-field" name="req1" id="re1" cols="30" rows="10">                                              
-                                            </textarea>
+                                           
+                                                <input type="text" class="form-control" name="superiorManagerAblative" placeholder="вышестоящий руководитель (творительный падеж)">
                                             
+                                        </div>
+                                        <br/>
+                                        <div class="employee_should_know">
+                                       
+                                            <label for="exampleInputEmail1">Работник должен знать</label>
+                                                <textarea type="text" name="empoyeeKnow" class="form-control" placeholder="каждый пункт начинается с новой стрки"></textarea>
+                                         
+                                            <textarea class="form-control update-field" name="empoyeeKnowAuto" id="re1" cols="30" rows="10">—На время отсутствия Работника (командировка, отпуск, болезнь и прочее) его должностные обязанности исполняет лицо, назначенное в установленном порядке. Данное лицо приобретает соответствующие права и несет ответственность за качественное исполнение возложенных на него обязанностей.
+
+                                                    —Сведения, содержащие персональные данные и составляющие коммерческую, служебную и иную охраняемую законом тайну и полученные Работником при выполнении своих обязанностей не подлежат разглашению, за исключением предусмотренных федеральным законом случаев.
+                                                    
+                                                    —В своей деятельности Работник руководствуется действующим законодательством Российской Федерации, Уставом Университета, Коллективным договором Университета, правилами внутреннего трудового распорядка, положением о структурном подразделении, решениями ученого совета Университета, решениями иных органов управления, координационных и совещательных органов, приказами и распоряжениями ректора, проректоров, иными локальными нормативными правовыми актами и организационно-распорядительными документами Университета, настоящей должностной инструкцией.
+                                                    
+                                                    Работник должен знать:
+                                                    • Основы трудового законодательства.
+                                                    • Локальные нормативные акты Университета, включая Устав Югорского государственного университета, положение о структурном подразделении, решения ученого совета Университета, положения, правила, инструкции, утверждаемые в установленном порядке.
+                                                    • Основы организации труда, правила и нормы охраны труда, пожарной безопасности, санитарные нормы и правила, правила пользования средствами коллективной и индивидуальной защиты от воздействия опасных и вредных производственных факторов.
+                                                    • Правила внутреннего трудового распорядка.
+                                                    • Законодательство Российской Федерации и локальные нормативные акты Университета о защите детей от информации, причиняющей вред их здоровью и (или) развитию, правила безопасного использования сети «Интернет» и средств защиты детей от информации, причиняющей вред их здоровью и развитию</textarea>                                            
                                         </div>
                                     </div>
                                 </div>
@@ -94,8 +117,16 @@
                                 </div>
                                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                                 <div class="card-body">
-                                    <textarea class="form-control update-field" name="list_do" id="" cols="30" rows="10"></textarea>
-                                    <textarea class="form-control update-field" name="list_do" id="" cols="30" rows="10">
+                                    <textarea class="form-control update-field" name="jobDuties" id="" cols="30" rows="10"></textarea>
+                                    <textarea class="form-control update-field" name="jobDutiesAuto" id="" cols="30" rows="10">—Участвовать в разработке проектов нормативной документации Университета (положения, регламенты и др.) по направлению деятельности подразделения.
+
+                                            —Участвовать в работе коллегиальных, координационных, совещательных органов, комиссий Университета, обеспечивать исполнение обязанностей членов данных органов и комиссий.
+                                            
+                                            —Обеспечивать сохранность и использовать по назначению материальные ценности и имущество Университета, переданные и (или) находящиеся в пользовании Работника.
+                                            
+                                            —Выполнять решения конференции работников и обучающихся Университета, ученого совета Университета, ректората, локальных нормативных актов и организационно-распорядительных документов Университета по направлению деятельности структурного подразделения, поручений непосредственного и вышестоящего руководства в письменной и устной формах.
+                                            
+                                            —Проходить аттестацию в порядке, установленном законодательством Российской Федерации, локальными нормативными актами и организационно-распорядительными документами Университета.
                                     </textarea>
                                     
                                     </div>
@@ -111,7 +142,27 @@
                                 </div>
                                 <div id="collapseFour" class="collapse" aria-labelledby="heading" data-parent="#accordionExample">
                                 <div class="card-body">
-                                    <textarea class="form-control update-field" name="list_do" id="" cols="30" rows="10">
+                                    <textarea class="form-control update-field" name="Right" id="" cols="30" rows="10">—Действовать от имени Университета по вопросам деятельности подразделения, представлять интересы подразделения во взаимоотношениях со структурными подразделениями Университета, а также органами государственной власти и местного самоуправления, иными лицами, учреждениями и организациями независимо от организационно-правовой формы и форм собственности по направлению деятельности в рамках делегированных полномочий, закрепленных организационно-распорядительных документах и (или) доверенностях.
+
+                                            —Вносить на рассмотрение руководству Университета предложения по улучшению деятельности подразделения.
+                                            
+                                            —Запрашивать от структурных подразделений Университета необходимую для осуществления деятельности структурного подразделения информацию.
+                                            
+                                            —Вносить на рассмотрение непосредственного и вышестоящего руководства представления о назначении, перемещении и освобождении от занимаемых должностей работников подразделения.
+                                            
+                                            —Предоставлять предложения о поощрении работников, о привлечении к дисциплинарной ответственности, по улучшению деятельности организации и совершенствованию методов работы коллектива.
+                                            
+                                            —Проводить совещания по вопросам деятельности подразделения, а также участвовать в проводимых руководством Университета совещаниях по вопросам, относящимся к деятельности подразделения.
+                                            
+                                            —Присутствовать на заседаниях, собраниях, по вопросам организации деятельности структурного подразделения.
+                                            
+                                            —Участвовать в обсуждении вопросов относительно исполняемых им обязанностей.
+                                            
+                                            —Давать указания, обязательные для всех работников подразделения.
+                                            
+                                            —Подписывать и визировать документы в пределах своей компетенции.
+                                            
+                                            —Участвовать в профессиональных и других общественных организациях, не запрещенных законодательством Российской Федерации.
                                     </textarea>
                                     
                                 </div>
@@ -127,34 +178,71 @@
                                 </div>
                                 <div id="five" class="collapse" aria-labelledby="heading" data-parent="#accordionExample">
                                 <div class="card-body">
-                                <textarea class="form-control update-field" name="list_do" id="" cols="30" rows="10">
-                                    </textarea>
- <script> src="/js/scriptCrDoc.js"
-    var rector = checkRector();
- </script>
-                                </div>
-                                </div>
-                            </div>
-                                                        
-                            <div class="card">
-                                <div class="card-header" id="headingFour">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="headingFour">
+                                <textarea class="form-control update-field" name="ResponsibilityAuto" id="" cols="30" rows="10">—За неисполнение или ненадлежащее исполнение своих обязанностей, превышение предоставленных полномочий, определенных локальными нормативными актами и организационно-распорядительными документами Университета, трудовым договором (эффективным контрактом), настоящей должностной инструкцией.
+
+                                        —За неисполнение или ненадлежащее исполнение законодательства и иных нормативных правовых актов Российской Федерации, инструктивных писем Министерства образования и науки Российской Федерации и Министерства науки и высшего образования Российской Федерации, локальных нормативных актов и организационно-распорядительных документов Университета, поручений и распоряжений ректора, решений ученого совета и ректората Университета, непосредственного и вышестоящего руководства.
                                         
-                                    </button>
-                                </h2>
-                                </div>
-                                <div id="headingFour" class="collapse" aria-labelledby="heading" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    <textarea class="form-control update-field" name="list_do" id="" cols="30" rows="10">
+                                        —За неэффективность выполняемой работы в соответствии с возложенными обязанностями и предоставленными полномочиями, работы курируемых структурных подразделений.
+                                        
+                                        —За разглашение конфиденциальных сведений, в том числе персональных данных, коммерческой тайны.
+                                        
+                                        —За нарушение сохранности документов, образующихся в результате деятельности подразделения.
+                                        
+                                        —За правонарушения, допущенные при осуществлении трудовой функции.
+                                        
+                                        —За ущерб, причиненный Университету его виновными действиями (бездействиями) в порядке, предусмотренном законодательством РФ.
+                                        
+                                        —За нарушение правил внутреннего трудового распорядка, производственной дисциплины, санитарных норм и правил, норм и правил охраны труда, правил и требований по обеспечению комплексной безопасности, в том числе пожарной, в подчиненных ему подразделениях.
+                                        
+                                        —В иных случаях, предусмотренных законодательством Российской Федерации, локальными нормативными актами Университета и организационно-распорядительными документами Университета, трудовым договором, настоящей должностной инструкцией.
+                                        
                                     </textarea>
-                                    
+
                                 </div>
                                 </div>
-                            </div>
-                                              
-                            <a class="btn btn-primary" href="{{ url('/createDocument/createJD') }}" role="button">Сфоримировать документ</a>
+                            </div>    
+                            @foreach ($typeReqs as $typeR)
+                                                                                                         
+                                <div class="card">
+                                        <div class="card-header" id="headingFour">
+                                        <h2 class="mb-0">
+                                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#type{{$typeR->id}}" aria-expanded="false" aria-controls="headingFour">
+                                                {{$typeR->nameType}}
+                                            </button>
+                                        </h2>
+                                        </div>                                 
+                                <div id="type{{$typeR->id}}" class="collapse" aria-labelledby="heading" data-parent="#accordionExample">
+                                @foreach ($requirements as $requirement)   
+                                    @if ($typeR->id == $requirement->typeReq_id)
+                                    <div class="card">
+                                            <div class="card-header" id="headingFour">                                             
+                                            <h2 class="mb-0">
+                                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#req{{$requirement->id}}" aria-expanded="false" aria-controls="headingFour">
+                                                    {{$requirement->name}}
+                                                </button>
+                                            </h2>
+                                            </div>
+                                            <div id="req{{$requirement->id}}" class="collapse" aria-labelledby="heading" data-parent="#accordionExample">
+                                                <div class="card-body">
+                                                <textarea class="form-control update-field" name="text{{$requirement->id}}" id="" cols="30" rows="10">       
+                                                    {{$requirement->text}}                                         
+                                                </textarea>    
+                                                </div>
+                                            </div>
+                                    </div> 
+                                    @endif
+                                    @endforeach   
+                                        <div class="card-body">
+                                        <textarea class="form-control update-field" name="typeR{{$typeR->id}}" id="" cols="30" rows="10">                                              
+                                        </textarea>    
+                                        </div>
+                                    </div>
+                            </div>                                                        
+                             @endforeach   
+                            <br/>                            
+                            <input type="submit" value="Сформировать" class="btn btn-primary">
+                        </form>     
                         </div>                        
-                </div>
+                
                 
 @endsection

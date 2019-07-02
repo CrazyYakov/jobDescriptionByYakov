@@ -5,7 +5,8 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -40,7 +41,16 @@ class User extends Authenticatable
     public function institution($param)
     {
         return institutions::find($param)->institut;
+    }
 
+    public function role($param)
+    {
+        return role::find($param)->nameRole;
+    }
+
+    public static function willClaim($param)
+    {        
+        return DB::select("SELECT id, name FROM users WHERE role_id IN (SELECT id FROM roles WHERE nameRole = 'admin' OR nameRole = 'moderator') AND inst_id = :param", ['param' => $param]);
     }
 
 }
