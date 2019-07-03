@@ -2,10 +2,11 @@
 
 Route::group(['middleware'=>['auth']], function () {
    
-    Route::get('/createDocument', 'JobDescriptionController@create');
-    Route::get('/createDocument/createJD', 'JobDescriptionController@createJD')->name('createJD');
-    Route::get('/showDocuments', 'JobDescriptionController@index');
+    Route::get('/createDocument', 'JobDescriptionController@create');   
 });
+Route::post('/createDocument/createJD', 'JobDescriptionController@createJD')->name('createDocument.createJD');
+Route::get('/showDocuments', 'JobDescriptionController@index')->name('showDocuments');
+
 
 Route::group(['prefix' => 'superAdmin', 'namespace'=>'superAdmin', 'middleware'=>'superAdmin'], function () {
     
