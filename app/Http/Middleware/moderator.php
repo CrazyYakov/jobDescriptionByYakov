@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-
+use Illuminate\Support\Facades\Auth;
 class moderator
 {
     /**
@@ -15,9 +15,9 @@ class moderator
      */
     public function handle($request, Closure $next)
     {
-        if($request->role != 'moderator'){
+        if(Auth::user()->role_id == 3){
             return redirect('errors.404');
         }
-        return $next($request);    
+        return $next($request);   
     }
 }

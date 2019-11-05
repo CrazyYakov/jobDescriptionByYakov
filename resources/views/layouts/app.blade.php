@@ -30,12 +30,17 @@
                 @else
                 <a class="navbar-brand" href="{{ url('/home') }}">
                 @endif                
-                    {{ config('app.name', 'Laravel') }}
+                    
                 </a>
-                @if (Route::has('login'))
+                @if (Auth::check())
                 <a class="nav-link" href="{{ url('/createDocument') }}">Создать документ</a>
                 <a class="nav-link" href="{{ url('/showDocuments')}}">Список Документов</a>
-                <a class="nav-link" href="{{url('/moderator')}}">Административная панель</a>
+                @if (Auth::user()->role_id != 3)
+                    <a class="nav-link" href="{{url('/moderator')}}">Административная панель</a>
+                @endif
+                @if (Auth::user()->role_id == 1)
+                <a class="nav-link" href="{{url('/superAdmin')}}">суперАдмин</a>
+                @endif
                 @endif
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>

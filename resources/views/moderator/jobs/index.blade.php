@@ -8,7 +8,7 @@
             <th>#</th>
             <th>Название</th>
             <th>Описание</th>
-            <th>Действие</th>
+            
         </thead>
         <tbody>
             @forelse ($jobs as $job)
@@ -16,12 +16,7 @@
             <td>{{$job->id}}</td>
             <td>{{$job->name}}</td>
             <td>{{$job->description}}</td>
-            <td>
-                <a href="{{route('superAdmin.institutions.delete',['id'=>$job->id])}}">
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                </a>
-                
-            </td>
+          
             </tr>
             @empty
                 <tr>

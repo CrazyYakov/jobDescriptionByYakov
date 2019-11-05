@@ -11,11 +11,10 @@ class RequirementController extends Controller
 {
     public function index()
     {            
-        
-        return view('moderator.requirements.index',[
-            
-            'requirements'=> requirement::typeReq(),            
-        ]);
+        $inst = Auth::user()->inst_id;
+        return view('moderator.requirements.index',[            
+            'requirements'=> requirement::typeReq($inst),            
+        ]); 
     }
     
     public function create()

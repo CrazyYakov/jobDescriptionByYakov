@@ -8,7 +8,7 @@
             <th>#</th>
             <th>Название</th>
             <th>Описание</th>
-            <th>Действие</th>
+            
         </thead>
         <tbody>
             @forelse ($typeReqs as $typeReq)
@@ -16,12 +16,7 @@
             <td>{{$typeReq->id}}</td>
             <td>{{$typeReq->nameType}}</td>
             <td>{{$typeReq->description}}</td>
-            <td>
-                <a href="{{route('superAdmin.institutions.delete',['id'=>$typeReq->id])}}">
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                </a>
-                
-            </td>
+           
             </tr>
             @empty
                 <tr>

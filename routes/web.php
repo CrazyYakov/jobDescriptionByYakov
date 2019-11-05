@@ -24,7 +24,7 @@ Route::group(['prefix' => 'superAdmin', 'namespace'=>'superAdmin', 'middleware'=
     
 });
 
-Route::group(['prefix' => 'moderator', 'namespace'=>'moderator','middleware' => 'auth'], function () {
+Route::group(['prefix' => 'moderator', 'namespace'=>'moderator','middleware' => 'moderator'], function () {
 
     Route::get('/','siteController@site')->name('moderator.site');
 
@@ -53,6 +53,7 @@ Route::group(['prefix' => 'admin','namespace'=>'admin','middleware' => 'auth'], 
 });
 
 Route::get('/', function () {
+    if(Auth::check()) return view('home');
     return view('auth.login');
 });
 

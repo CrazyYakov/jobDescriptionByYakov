@@ -8,7 +8,7 @@
             <th>#</th>
             <th>Название</th>
             <th>принадлежит к требованию:</th>
-            <th>Действие</th>
+            
         </thead>
         <tbody>
             @forelse ($requirements as $requirement)
@@ -18,11 +18,7 @@
             <td>{{$requirement->id}}</td>
             <td>{{$requirement->name}}</td>
             <td>{{$requirement->nameType}}</td>            
-            <td>
-                <a href="{{route('superAdmin.institutions.delete',['id'=>$requirement->id])}}">
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                </a>                
-            </td>
+           
             </tr>         
             @empty
                 <tr>

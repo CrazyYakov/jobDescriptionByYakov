@@ -32,6 +32,16 @@ class JobDescriptionController extends Controller
     
         include '/var/www/laravel/blog/app/phpWord/phpoffice/phpword/bootstrap.php';
         
+        $text = "";
+        $inst = Auth::user()->inst_id;
+        foreach (App\type_Req::where('inst_id',$inst)->get() as $typeR) {
+            $text = $text." ".$typeR->nameType;
+            foreach (App\requirement::typeReq($inst) as $requiement) {
+                if ($typeR->id == $requiement->typeReq_id) {
+                    $text = $text." ".$request["requirement".$requiement->id];
+                }
+            }            
+        }
         $document = new \PhpOffice\PhpWord\TemplateProcessor('doc.docx');        
         $document->setValue('jobClaim', App\Job_positions::find(App\User::find($request['willClaim'])->job_id)->name);
         $document->setValue('claim', App\User::find($request['willClaim'])->name);
@@ -48,9 +58,14 @@ class JobDescriptionController extends Controller
         $document->setValue('empoyeeKnowAuto', $request["empoyeeKnowAuto"]);
         $document->setValue('jobDuties', $request["jobDuties"]);
         $document->setValue('jobDutiesAuto', $request["jobDutiesAuto"]);
-        $document->setValue('rightAuto', $request["rightAuto"]);
+        $document->setValue('RightAuto', $request["RightAuto"]);
         $document->setValue('ResponsibilityAuto', $request["ResponsibilityAuto"]);
+        $document->setValue('otherRequirements', $text);
         
+        
+        
+        $document->setValue('otherRequirements', $text);
+
         
         $document->saveAs(JobDescription::max('id')+(1)."_".Auth::user()->name."_".$request['Job']."_".$request['structUnit'].".docx");
 

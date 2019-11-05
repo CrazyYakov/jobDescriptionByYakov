@@ -17,12 +17,7 @@
             <td>{{$user->name}}</td>
             <td>{{$user->role($user->role_id)}}</td>
             <td>{{$user->email}}</td>
-            <td>
-                <a href="{{route('superAdmin.users.delete',['id'=>$user->id])}}">
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                </a>
-                
-            </td>
+           
             </tr>
             @empty
                 <tr>

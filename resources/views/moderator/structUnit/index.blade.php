@@ -8,7 +8,7 @@
             <th>#</th>
             <th>Название</th>
             <th>Описание</th>
-            <th>Действие</th>
+            
         </thead>
         <tbody>
             @forelse ($structUnits as $structUnit)
@@ -16,12 +16,7 @@
             <td>{{$structUnit->id}}</td>
             <td>{{$structUnit->struct_unit}}</td>
             <td>{{$structUnit->description}}</td>
-            <td>
-                <a href="{{route('superAdmin.institutions.delete',['id'=>$structUnit->id])}}">
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                </a>
-                
-            </td>
+            
             </tr>
             @empty
                 <tr>

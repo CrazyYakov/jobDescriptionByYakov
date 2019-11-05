@@ -9,7 +9,7 @@
             <th scope="col">Должность</th>
             <th scope="col">Структурное подразделение</th>    
             <th scope="col">Разработчик должностной инструкции</th>
-            <th scope="col">Дата утверждения</th> 
+            <th scope="col">Дата разработки</th> 
                         
           </tr>
         </thead>
