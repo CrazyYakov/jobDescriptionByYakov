@@ -9,7 +9,7 @@ class StructUnit extends Migration
  
     public function up()
     {
-        Schema::create('struct_units', function (Blueprint $table) {
+        Schema::create('struct_unit', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('struct_unit');
             $table->text('description');

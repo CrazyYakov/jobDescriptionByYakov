@@ -9,7 +9,7 @@ class TypeReq extends Migration
     
     public function up()
     {
-        Schema::create('typeReqs', function (Blueprint $table) {
+        Schema::create('typeReq', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nameType');
             $table->text('description');
