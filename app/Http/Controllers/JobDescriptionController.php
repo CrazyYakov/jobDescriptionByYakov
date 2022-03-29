@@ -17,10 +17,11 @@ class JobDescriptionController extends Controller
 
     public function create()
     {
-        $inst = Auth::user()->inst_id;  
+        $inst = Auth::user()->inst_id;
+
         return view('createDocument')->with(
              [
-                'jobs' => App\Job_positions::where('inst_id',$inst)->get(),
+                'jobs' => App\Job_positions::where('inst_id', $inst)->get(),
                 'requirements' => App\requirement::typeReq($inst),
                 'typeReqs' => App\type_Req::where('inst_id',$inst)->get(),
                 'willClaims' => App\User::willClaim($inst),
@@ -28,12 +29,14 @@ class JobDescriptionController extends Controller
              ]
          );
     }
+
     public function createJD(Request $request){    
     
         include '/var/www/laravel/blog/app/phpWord/phpoffice/phpword/bootstrap.php';
         
         $text = "";
         $inst = Auth::user()->inst_id;
+
         foreach (App\type_Req::where('inst_id',$inst)->get() as $typeR) {
             $text = $text." ".$typeR->nameType;
             foreach (App\requirement::typeReq($inst) as $requiement) {
@@ -42,6 +45,7 @@ class JobDescriptionController extends Controller
                 }
             }            
         }
+        
         $document = new \PhpOffice\PhpWord\TemplateProcessor('doc.docx');        
         $document->setValue('jobClaim', App\Job_positions::find(App\User::find($request['willClaim'])->job_id)->name);
         $document->setValue('claim', App\User::find($request['willClaim'])->name);
