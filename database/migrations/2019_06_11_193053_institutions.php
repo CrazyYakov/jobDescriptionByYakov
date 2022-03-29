@@ -13,10 +13,10 @@ class Institutions extends Migration
      */
     public function up()
     {
-        Schema::create('institutions', function (Blueprint $table){
+        Schema::create('institutions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('institut');      
-            $table->text('description');            
+            $table->string('name');
+            $table->text('description');
         });
     }
 

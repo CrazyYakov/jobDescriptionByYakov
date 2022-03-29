@@ -1,9 +1,15 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
+    const NAME_INSTITUT = "Институт";
+    const NAME_JOB_POSITION = "Директор";
+    const DESCRIPTION = "Описание...";
+
+
     /**
      * Seed the application's database.
      *
@@ -11,10 +17,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'name' => Str::random(10),
-            'email' => Str::random(10).'@gmail.com',
-            'password' => bcrypt('secret'),
+        DB::table('institutions')->insert([
+            'name' => self::NAME_INSTITUT,
+            'description' => self::DESCRIPTION
+        ]);
+
+        DB::table('job_positions')->insert([
+            'name' => self::NAME_JOB_POSITION,
+            'description' => self::DESCRIPTION
         ]);
     }
 }

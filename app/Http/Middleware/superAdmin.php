@@ -18,6 +18,7 @@ class superAdmin
         if(Auth::user()->role_id != 1){
             return redirect('errors.404');
         }
+        
         return $next($request);    
     }
 

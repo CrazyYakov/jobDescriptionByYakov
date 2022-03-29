@@ -38,44 +38,44 @@
                                 @enderror
                             </div>
                         </div>
-
+                        
+                        @if (! empty($job))
                         <div class="form-group row">
-                                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Jobs') }}</label>
-    
-                                <div class="col-md-6">                                
-                                        <select class="form-control" name="job_id">
-                                        <option>Select job</option>                                                  
-                                        @foreach ($jobs as $job)
-                                          <option value="{{ $job->id }}" > {{ $job->name }} </option>
-                                        @endforeach    </select>                                        
-                                </div>                            
+                            <label for="job" class="col-md-4 col-form-label text-md-right">{{ __('Jobs') }}</label>
+
+                            <div class="col-md-6">                                
+                                    <select class="form-control" name="job_id">
+                                    <option>Select job</option>                                                  
+                                    @foreach ($jobs as $job)
+                                      <option value="{{ $job->id }}" > {{ $job->name }} </option>
+                                    @endforeach    </select>                                        
+                            </div>                            
                         </div>
 
-                        <div class="form-group row">
-                                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Institute') }}</label>
-    
-                                <div class="col-md-6">                                
-                                        <select class="form-control" name="institut_id">
-                                        <option>Select institution</option>                                        
-                                        @foreach ($institutions as $institute)
-                                          <option value="{{ $institute->id }}" > {{ $institute->institut }} </option>
-                                        @endforeach    </select>                                        
-                                </div>                            
-                        </div>
+                            <div class="form-group row">
+                                    <label for="institute" class="col-md-4 col-form-label text-md-right">{{ __('Institute') }}</label>
 
-                        <div class="form-group row">
-                                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
-    
-                                <div class="col-md-6">                                
-                                        <select class="form-control" name="role_id">
-                                        <option>Select role</option>                                        
-                                        @foreach ($roles as $role)
-                                          <option value="{{ $role->id }}"> {{ $role->nameRole }} </option>
-                                        @endforeach    </select>                                        
-                                </div>                            
-                        </div>
+                                    <div class="col-md-6">                                
+                                            <select class="form-control" name="institut_id">
+                                            <option>Select institution</option>                                        
+                                            @foreach ($institutions as $institute)
+                                            <option value="{{ $institute->id }}" > {{ $institute->institut }} </option>
+                                            @endforeach    </select>                                        
+                                    </div>                            
+                            </div>
 
+                            <div class="form-group row">
+                                    <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
 
+                                    <div class="col-md-6">                                
+                                            <select class="form-control" name="role_id">
+                                            <option>Select role</option>                                        
+                                            @foreach ($roles as $role)
+                                            <option value="{{ $role->id }}"> {{ $role->nameRole }} </option>
+                                            @endforeach    </select>                                        
+                                    </div>                            
+                            </div>
+                        @endif
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
