@@ -11,7 +11,7 @@ class StructUnit extends Migration
     {
         Schema::create('struct_unit', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('struct_unit');
+            $table->string('name');
             $table->text('description');
             $table->bigInteger('inst_id')->unsigned();
             $table->foreign('inst_id')->references('id')->on('institutions');

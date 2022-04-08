@@ -4,6 +4,7 @@ Route::group(['middleware'=>['auth']], function () {
    
     Route::get('/createDocument', 'JobDescriptionController@create');   
 });
+
 Route::post('/createDocument/createJD', 'JobDescriptionController@createJD')->name('createDocument.createJD');
 Route::get('/showDocuments', 'JobDescriptionController@index')->name('showDocuments');
 
@@ -52,14 +53,6 @@ Route::group(['prefix' => 'admin','namespace'=>'admin','middleware' => 'auth'], 
     Route::get('/user/store', 'UserController@store')->name('admin.user.store');
 });
 
-Route::get('/', function () {
-    if(Auth::check()) return view('home');
-    return view('auth.login');
-});
-
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-//Route::get('/admin', '');

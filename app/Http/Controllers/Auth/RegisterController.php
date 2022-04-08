@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use App\Institution;
+use App\JobPosition;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Role;
 
 class RegisterController extends Controller
 {
@@ -51,6 +54,8 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'job_id' => ['required'],
+            'inst_id' => ['required'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
     }
@@ -67,9 +72,17 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'inst_id' => $data['institut_id'],
+            'inst_id' => $data['inst_id'],
             'job_id' => $data['job_id'],
-            'role_id' => $data['role_id'],
+            'role_id' => Role::where('name', 'user')->first()->id,
+        ]);
+    }
+
+    public function showRegistrationForm()
+    {
+        return view('auth.register', [
+            'jobPositions' => JobPosition::all(),
+            'institutions' => Institution::all()
         ]);
     }
 }

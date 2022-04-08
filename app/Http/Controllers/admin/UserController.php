@@ -5,8 +5,8 @@ namespace App\Http\Controllers\admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
-use App\role;
-use App\Job_positions;
+use App\Role;
+use App\JobPosition;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -16,6 +16,7 @@ class UserController extends Controller
     public function index()
     {
         $inst = Auth::user()->inst_id;
+
         return view('admin.user.index',[
             'users' => User::where('inst_id', $inst)->get(),
         ]);
@@ -29,9 +30,10 @@ class UserController extends Controller
     public function create()
     {
         $inst = Auth::user()->inst_id;
+
         return view('admin.user.create',[            
-            'jobs' => Job_positions::where('inst_id', $inst)->get(),
-            'roles'=> role::rolesforAdmin(),
+            'jobs' => JobPosition::where('inst_id', $inst)->get(),
+            'roles'=> Role::rolesforAdmin(),
         ]);
     }
 
@@ -41,19 +43,20 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-
     protected function validator(array $data)
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
     }
+
     public function store(Request $request)
     {
 
         $this->validator($request->all())->validate();
+
         User::create([
             'name' => $request['name'],
             'email' => $request['email'],

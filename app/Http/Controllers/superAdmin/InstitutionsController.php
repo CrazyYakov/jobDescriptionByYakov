@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\superAdmin;
 
-use App\institutions;
+use App\Institution;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 class InstitutionsController extends Controller
@@ -15,7 +15,7 @@ class InstitutionsController extends Controller
     public function index()
     {
         return view('superAdmin.institutions.index',[
-            'institutions' => institutions::paginate(10)
+            'institutions' => Institution::paginate(10)
         ]);
     }
 
@@ -29,9 +29,9 @@ class InstitutionsController extends Controller
     
     public function store(Request $request)
     {
-        institutions::create([
-            'institut' => $request['institut'],
-            'description'=>$request['description'],
+        Institution::create([
+            'name' => $request['institut'],
+            'description'=> $request['description'],
         ]);
 
         return redirect()->route('superAdmin.institutions.index');

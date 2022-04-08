@@ -4,8 +4,8 @@ namespace App\Http\Controllers\superAdmin;
 
 use App\Http\Controllers\Controller;
 use App\User;
-use App\institutions;
-use App\Job_positions;
+use App\Institution;
+use App\JobPosition;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -32,8 +32,8 @@ class UserController extends Controller
     public function create()
     {
         return view('superAdmin.users.create',[
-            'institutions'=> institutions::all(),
-            'jobs'        => Job_positions::all(),
+            'institutions'=> Institution::all(),
+            'jobs'        => JobPosition::all(),
         ]);
     }
 
@@ -54,8 +54,8 @@ class UserController extends Controller
     }
     public function store(Request $request)
     {
-
         $this->validator($request->all())->validate();
+        
         User::create([
             'name' => $request['name'],
             'email' => $request['email'],

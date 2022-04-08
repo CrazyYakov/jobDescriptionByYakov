@@ -17,14 +17,25 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('institutions')->insert([
+        $institutId = DB::table('institutions')->insertGetId([
             'name' => self::NAME_INSTITUT,
             'description' => self::DESCRIPTION
         ]);
 
         DB::table('job_positions')->insert([
-            'name' => self::NAME_JOB_POSITION,
-            'description' => self::DESCRIPTION
+            'name'        => self::NAME_JOB_POSITION,
+            'description' => self::DESCRIPTION,
+            'inst_id'     => $institutId
         ]);
+
+        DB::table('roles')->insert([
+            ['name' => 'user'],
+            ['name' => 'moderator'],
+            ['name' => 'Admin'],
+            ['name' => 'superAdmin'],
+        ]);
+        // DB::table('struct_unit')->insert([
+        
+        // ])
     }
 }

@@ -14,7 +14,7 @@
             @forelse ($structUnits as $structUnit)
             <tr>
             <td>{{$structUnit->id}}</td>
-            <td>{{$structUnit->struct_unit}}</td>
+            <td>{{$structUnit->name}}</td>
             <td>{{$structUnit->description}}</td>
             
             </tr>

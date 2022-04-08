@@ -38,19 +38,37 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function institutions()
+    {
+        return $this->belongsToMany(Institution::class);
+    }
+
+    public function jobPositions()
+    {
+        return $this->belongsToMany(JobPosition::class);
+    }
+
     public function institution($param)
     {
-        return institutions::find($param)->institut;
+        return institution::find($param)->name;
     }
 
     public function role($param)
     {
-        return role::find($param)->nameRole;
+        return Role::find($param)->nameRole;
     }
 
-    public static function willClaim($param)
-    {        
-        return DB::select("SELECT id, name FROM users WHERE role_id IN (SELECT id FROM roles WHERE nameRole = 'admin' OR nameRole = 'moderator') AND inst_id = :param", ['param' => $param]);
+    public static function willClaim($institutId)
+    {
+        $adminId = Role::ADMIN;
+        $moderatorId = Role::MODERATOR;
+        
+        return DB::select("SELECT id, name FROM users WHERE role_id IN ($adminId, $moderatorId) AND inst_id = :param", ['param' => $institutId]);
     }
 
 }

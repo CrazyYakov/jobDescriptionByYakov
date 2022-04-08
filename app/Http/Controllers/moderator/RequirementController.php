@@ -5,7 +5,7 @@ namespace App\Http\Controllers\moderator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\requirement;
-use App\type_Req;
+use App\TypeReq;
 use Illuminate\Support\Facades\Auth;
 class RequirementController extends Controller
 {
@@ -21,7 +21,7 @@ class RequirementController extends Controller
     {
         $inst = Auth::user()->inst_id;
         return view('moderator.requirements.create',[
-            'typeReqs' => type_Req::where('inst_id', $inst)->get(),
+            'typeReqs' => TypeReq::where('inst_id', $inst)->get(),
         ]);
     }
     public function store(Request $request)
