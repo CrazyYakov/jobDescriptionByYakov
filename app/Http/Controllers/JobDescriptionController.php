@@ -19,14 +19,14 @@ class JobDescriptionController extends Controller
 
     public function create()
     {
-        $inst = Auth::user()->inst_id;
+        $institutId = Auth::user()->inst_id;
 
         return view('createDocument')->with(
             [
-                'jobs' => App\JobPosition::where('inst_id', $inst)->get(),
-                'typeReqs' => App\TypeReq::where('inst_id', $inst)->get(),
-                'willClaims' => App\User::willClaim($inst),
-                'structUnits' => App\StructUnit::where('inst_id', $inst)->get(),
+                'jobs' => App\JobPosition::where('inst_id', $institutId)->get(),
+                'typeReqs' => App\TypeReq::where('inst_id', $institutId)->get(),
+                'willClaims' => App\User::willClaim($institutId),
+                'structUnits' => App\StructUnit::where('inst_id', $institutId)->get(),
             ]
         );
     }
