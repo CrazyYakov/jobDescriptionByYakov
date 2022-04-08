@@ -69,19 +69,19 @@ class JobDescriptionController extends Controller
         
         $document->setValue('otherRequirements', $text);
 
-        $nameFileDocx = JobDescription::max('id') + (1) . "_" . Auth::user()->name . "_" . $request['Job'] . "_" . $request['structUnit'] . ".docx";
-        $document->saveAs($nameFileDocx);
+        $nameFileDocx = JobDescription::max('id') + (1) . "_" . Auth::user()->name . "_" . $request['Job'] . "_" . $request['structUnit'];
+        $document->saveAs($nameFileDocx . ".docx");
 
         JobDescription::create([
-            'nameDocument' => JobDescription::max('id') + (1) . "_" . Auth::user()->name . "_" . $request['Job'] . "_" . $request['structUnit'],
+            'nameDocument' => $nameFileDocx,
             'record' => htmlspecialchars($request['empoyeeKnowAuto']),
-            'created_at' => Carbon::now(),
             'user_id' => Auth::user()->id,
             'unit_id' => $request['structUnit'],
-            'job_id' => $request['Job']
+            'job_id' => $request['Job'],
+            'created_at' => Carbon::now()
         ]);
 
-        return response()->file($nameFileDocx);//redirect()->route('showDocuments');      
+        return response()->download($nameFileDocx);//redirect()->route('showDocuments');      
     } 
 }
 

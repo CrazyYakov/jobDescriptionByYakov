@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 class JobDescription extends Model
 {
     public $timestamps = false;
+    
     protected $fillable  = ['nameDocument', 'record', 'created_at','user_id','unit_id','job_id'];
 
     public static function field()
