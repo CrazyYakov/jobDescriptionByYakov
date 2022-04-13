@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class JobDescription extends Migration
+class CreateJobDescriptionsTable extends Migration
 {
     /**
      * Run the migrations.
