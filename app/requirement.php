@@ -16,8 +16,13 @@ class Requirement extends Model
     }
 
     public static function typeReq($inst)
-    {            
-        return  DB::select("SELECT Distinct r.id , r.name, tr.nameType, r.text, r.typeReq_id  FROM requirements as  r, typeReq as tr WHERE r.typeReq_id In (SELECT id FROM typeReq WHERE inst_id = $inst) AND tr.id = r.typeReq_id");
+    {
+        return DB::table('requirements')
+            ->distinct()
+            ->select(['requirements.id', 'requirements.name', 'typeReq.nameType', 'requirements.text', 'requirements.typeReq_id'])
+            ->join('typeReq', 'typeReq.id', '=', 'requirements.typeReq_id')
+            ->where('typeReq.inst_id', $inst)
+            ->get();
     }
     
 }

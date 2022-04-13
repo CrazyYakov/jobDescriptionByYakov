@@ -12,8 +12,8 @@ class Role extends Model
     const ADMIN = 3;
     const SUPER_ADMIN = 4;
 
-    public static function rolesforAdmin()
+    public static function getRolesforAdmin()
     {
-        return DB::select("SELECT * FROM roles WHERE id in (" . self::MODERATOR . "," . self::ADMIN . ")");
+        return DB::table('roles')->whereIn('id', [self::USER, self::MODERATOR, self::ADMIN])->get();
     }
 }
