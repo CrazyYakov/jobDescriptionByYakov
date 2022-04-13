@@ -1,5 +1,6 @@
 <?php
 
+use App\JobPosition;
 use Illuminate\Http\Request;
 
 /*
@@ -15,4 +16,12 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('/getInstitutJobs', function (Request $request) {
+    if ($request['institutId']) {
+        return JobPosition::where('inst_id', $request['institutId'])->get();    
+    }
+    
+    return response(['message' => 'Bad Request', 'code' => 400], 400);
 });
