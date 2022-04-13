@@ -51,8 +51,8 @@
                             <div class="struct_unit">
                                 <select class="form-control" name="structUnit">
                                     <option disabled>структурное подразделение</option>
-                                    @foreach ($structUnits as $su)
-                                        <option value="{{ $su->id }}">{{ $su->struct_unit }}</option>
+                                    @foreach ($structUnits as $structUnit)
+                                        <option value="{{ $structUnit->id }}">{{ $structUnit->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

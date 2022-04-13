@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
     
-        <form class="form-horizontal" action="{{route('admin.user.store')}}" method="GET">
+        <form class="form-horizontal" action="{{route('admin.user.store')}}" method="POST">
             {{csrf_field()}}
              @include('admin.user.partials.form')
         </form>

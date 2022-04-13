@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Должностные инструкции') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -35,10 +35,10 @@
                 @if (Auth::check())
                 <a class="nav-link" href="{{ url('/createDocument') }}">Создать документ</a>
                 <a class="nav-link" href="{{ url('/showDocuments')}}">Список Документов</a>
-                @if (Auth::user()->role_id != 3)
+                @if (Auth::user()->role_id != 2)
                     <a class="nav-link" href="{{url('/moderator')}}">Административная панель</a>
                 @endif
-                @if (Auth::user()->role_id == 1)
+                @if (Auth::user()->role_id == 4)
                 <a class="nav-link" href="{{url('/superAdmin')}}">суперАдмин</a>
                 @endif
                 @endif

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-    <a href="{{route('superAdmin.institutions.create')}}" class="btn btn-primary">Создать Институт</a>
+    <a href="{{route('superAdmin.institutions.create')}}" class="btn btn-primary mb-5">Создать Институт</a>
     <table class="table table-striped">
         <thead>
             <th>#</th>
@@ -14,7 +14,7 @@
             @forelse ($institutions as $institution)
             <tr>
             <td>{{$institution->id}}</td>
-            <td>{{$institution->institut}}</td>
+            <td>{{$institution->name}}</td>
             <td>{{$institution->description}}</td>
             
             </tr>
