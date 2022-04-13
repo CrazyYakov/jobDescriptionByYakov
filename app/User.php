@@ -65,10 +65,10 @@ class User extends Authenticatable
 
     public static function willClaim($institutId)
     {
-        $adminId = Role::ADMIN;
-        $moderatorId = Role::MODERATOR;
-        
-        return DB::select("SELECT id, name FROM users WHERE role_id IN ($adminId, $moderatorId) AND inst_id = :param", ['param' => $institutId]);
+        return DB::table('users')
+            ->whereIn('role_id', [Role::ADMIN, Role::MODERATOR])
+            ->where('inst_id', $institutId)
+            ->get();
     }
 
 }
