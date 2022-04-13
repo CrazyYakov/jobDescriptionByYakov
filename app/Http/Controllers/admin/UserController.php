@@ -3,25 +3,16 @@
 namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\User;
 use App\Role;
 use App\JobPosition;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\moderator\UserController as ModeratorUserController;
 use Illuminate\Support\Facades\Auth;
 
-class UserController extends Controller
+class UserController extends ModeratorUserController
 {
-    public function index()
-    {
-        $inst = Auth::user()->inst_id;
-
-        return view('admin.user.index',[
-            'users' => User::where('inst_id', $inst)->get(),
-        ]);
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -33,40 +24,38 @@ class UserController extends Controller
 
         return view('admin.user.create',[            
             'jobs' => JobPosition::where('inst_id', $inst)->get(),
-            'roles'=> Role::rolesforAdmin(),
-        ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'roles'=> Role::getRolesforAdmin(),
         ]);
     }
 
     public function store(Request $request)
     {
-
         $this->validator($request->all())->validate();
+
+        $inst = Auth::user()->inst_id;
 
         User::create([
             'name' => $request['name'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
-            'inst_id' => Auth::user()->inst_id,
+            'inst_id' => $inst,
             'job_id' => $request['job_id'],
             'role_id' => $request['role_id'],
         ]);
 
         return redirect()->route('admin.user.index');
+    }
+
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'inst_id' => ['required', 'integer'],
+            'job_id' => ['required', 'integer'],
+            'role_id' => ['required', 'integer', 'min:2', 'max:3'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+        ]);
     }
 
     /**

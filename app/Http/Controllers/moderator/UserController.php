@@ -5,7 +5,12 @@ namespace App\Http\Controllers\moderator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use App\Job_positions;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+use App\JobPosition;
+use App\Role;
+use App\User;
+
 class UserController extends Controller
 {
     /**
@@ -16,8 +21,9 @@ class UserController extends Controller
     public function index()
     {
         $inst = Auth::user()->inst_id;
-        return view('superAdmin.users.index',[
-            'users' => User::where('inst_id', $inst)
+
+        return view('admin.user.index',[
+            'users' => User::where('inst_id', $inst)->get(),
         ]);
     }
 
@@ -29,38 +35,36 @@ class UserController extends Controller
     public function create()
     {
         $inst = Auth::user()->inst_id;
-        return view('superAdmin.users.create',[
-            
-            'jobs'=> Job_positions::where('inst_id', $inst)->get(),
+
+        return view('superAdmin.users.create',[        
+            'jobs'=> JobPosition::where('inst_id', $inst)->get(),
         ]);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
 
     protected function validator(array $data)
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'inst_id' => ['required', 'integer'],
+            'job_id' => ['required', 'integer'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
     }
+
     public function store(Request $request)
     {
-
         $this->validator($request->all())->validate();
+        
+        $inst = Auth::user()->inst_id;
+
         User::create([
             'name' => $request['name'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
-            'inst_id' => Auth::user()->inst_id,
+            'inst_id' => $inst,
             'job_id' => $request['job_id'],
-            'role_id' => $request['role'],
+            'role_id' => Role::USER
         ]);
 
         return redirect()->route('superAdmin.users.index');
