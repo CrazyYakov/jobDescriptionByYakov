@@ -2,9 +2,11 @@
 
 namespace App\Http\Middleware;
 
+use App\Role;
 use Closure;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
-class moderator
+class Moderator
 {
     /**
      * Handle an incoming request.
@@ -14,10 +16,11 @@ class moderator
      * @return mixed
      */
     public function handle($request, Closure $next)
-    {
-        if(Auth::user()->role_id == 3){
-            return redirect('errors.404');
+    {   
+        if(in_array(Auth::user()->role_id, [Role::MODERATOR, Role::ADMIN, Role::SUPER_ADMIN])) {
+            return $next($request);
         }
-        return $next($request);   
+        
+        return redirect('errors.404');   
     }
 }

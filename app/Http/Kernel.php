@@ -60,8 +60,8 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'superAdmin' => \App\Http\Middleware\superAdmin::class,
-        'moderator' => \App\Http\Middleware\moderator::class,
+        'superAdmin' => \App\Http\Middleware\SuperAdmin::class,
+        'moderator' => \App\Http\Middleware\Moderator::class,
     ]; 
 
     /**

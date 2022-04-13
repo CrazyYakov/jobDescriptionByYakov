@@ -2,9 +2,11 @@
 
 namespace App\Http\Middleware;
 
+use App\Role;
 use Closure;
 use Illuminate\Support\Facades\Auth;
-class superAdmin
+
+class SuperAdmin
 {
     /**
      * Handle an incoming request.
@@ -15,11 +17,10 @@ class superAdmin
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::user()->role_id != 1){
+        if (Auth::user()->role_id != Role::SUPER_ADMIN) {
             return redirect('errors.404');
         }
-        
-        return $next($request);    
-    }
 
+        return $next($request);
+    }
 }
